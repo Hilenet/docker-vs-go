@@ -1,4 +1,4 @@
-FROM golang:1.11
+FROM golang:latest
 
 # https://github.com/Microsoft/vscode-go/wiki/Go-tools-that-the-Go-extension-depends-on
 RUN go get github.com/ramya-rao-a/go-outline \
