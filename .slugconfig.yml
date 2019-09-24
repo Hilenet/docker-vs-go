@@ -1,0 +1,44 @@
+version: 1
+
+# default: 5proc
+worker_process: 5
+
+# like a ssh_config
+www: &www
+    target: /tmp/
+    host_name: www00
+    port: 22
+    user: target
+    # identify_file: ...
+    proxy_server: step00
+
+step: &step
+    host_name: step00
+    port: 22
+    user: step
+    #identify_file: ...
+
+target_branches:
+    test/slug:
+        servers:
+            www00:
+                <<: *www
+            www01:
+                <<: *www
+                host_name: www01
+            www02:
+                <<: *www
+                host_name: www02
+                proxy_server: step00
+            www03:
+                <<: *www
+                host_name: www03
+                proxy_server: step00
+        proxy_servers:
+            step00:
+                host_name: step00
+                <<: *step
+        chat_notification:
+            integration: slack
+            webhook_url: https://hooks.slack.com/services/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
+
